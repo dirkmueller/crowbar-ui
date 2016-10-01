@@ -4,17 +4,17 @@ function() {
 
     /**
      * @ngdoc function
-     * @name crowbarApp.controller:Upgrade7BackupController
+     * @name crowbarApp.controller:UpgradeBackupController
      * @description
-     * # Upgrade7BackupController
+     * # UpgradeBackupController
      * This is the controller used on the Upgrade backup page
      */
     angular.module('crowbarApp')
-        .controller('Upgrade7BackupController', Upgrade7BackupController);
+        .controller('UpgradeBackupController', UpgradeBackupController);
 
-    Upgrade7BackupController.$inject = ['$translate', '$state', 'upgradeBackupFactory', '$document'];
+    UpgradeBackupController.$inject = ['$translate', '$state', 'upgradeBackupFactory', '$document'];
     // @ngInject
-    function Upgrade7BackupController($translate, $state, upgradeBackupFactory, $document) {
+    function UpgradeBackupController($translate, $state, upgradeBackupFactory, $document) {
         var vm = this;
         vm.backup = {
             running: false,

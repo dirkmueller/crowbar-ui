@@ -3,64 +3,52 @@
 
     /**
     * @ngdoc function
-    * @name crowbarApp.controller:Upgrade7NodesRepositoriesCheckController
+    * @name crowbarApp.controller:UpgradeAdministrationRepositoriesCheckController
     * @description
-    * # Upgrade7NodesRepositoriesCheckController
-    * This is the controller used on the Upgrade Nodes Repo Checks page
+    * # UpgradeAdministrationRepositoriesCheckController
+    * This is the controller used on the Upgrade Administration Repositories Checks page
     */
     angular.module('crowbarApp')
-        .controller('Upgrade7NodesRepositoriesCheckController', Upgrade7NodesRepositoriesCheckController);
+        .controller('UpgradeAdministrationRepositoriesCheckController',
+            UpgradeAdministrationRepositoriesCheckController);
 
-    Upgrade7NodesRepositoriesCheckController.$inject = ['$translate', 'upgradeRepositoriesChecksFactory'];
+    UpgradeAdministrationRepositoriesCheckController.$inject = ['$translate', 'upgradeRepositoriesChecksFactory'];
     // @ngInject
-    function Upgrade7NodesRepositoriesCheckController($translate, upgradeRepositoriesChecksFactory) {
+    function UpgradeAdministrationRepositoriesCheckController($translate, upgradeRepositoriesChecksFactory) {
         var vm = this;
         vm.repoChecks = {
+            running: false,
+            spinnerVisible: false,
             completed: false,
             valid: false,
             checks: {
                 'SLES_12_SP2': {
                     status: false, 
-                    label: 'upgrade7.steps.nodes-repository-checks.repositories.codes.SLES_12_SP2'
+                    label: 'upgrade.steps.admin-repository-checks.repositories.codes.SLES_12_SP2'
                 },
                 'SLES_12_SP2_Updates': {
                     status: false, 
-                    label: 'upgrade7.steps.nodes-repository-checks.repositories.codes.SLES_12_SP2_Updates'
+                    label: 'upgrade.steps.admin-repository-checks.repositories.codes.SLES_12_SP2_Updates'
                 },
                 'SLES_OpenStack_Cloud_7': {
                     status: false, 
-                    label: 'upgrade7.steps.nodes-repository-checks.repositories.codes.SLES_OpenStack_Cloud_7'
+                    label: 'upgrade.steps.admin-repository-checks.repositories.codes.SLES_OpenStack_Cloud_7'
                 },
                 'SLES_OpenStack_Cloud_7_Updates': {
                     status: false, 
-                    label: 'upgrade7.steps.nodes-repository-checks.repositories.codes.SLES_OpenStack_Cloud_7_Updates'
-                },
-                'SLE_HA_12_SP2': {
-                    status: false, 
-                    label: 'upgrade7.steps.nodes-repository-checks.repositories.codes.SLE_HA_12_SP2'
-                },
-                'SLE_HA_12_SP2_Updates': {
-                    status: false, 
-                    label: 'upgrade7.steps.nodes-repository-checks.repositories.codes.SLE_HA_12_SP2_Updates'
-                },
-                'SUSE_Enterprise_Storage_4': {
-                    status: false, 
-                    label: 'upgrade7.steps.nodes-repository-checks.repositories.codes.SUSE_Enterprise_Storage_4'
-                },
-                'SUSE_Enterprise_Storage_4_Updates': {
-                    status: false, 
-                    label: 'upgrade7.steps.nodes-repository-checks.repositories.codes.SUSE_Enterprise_Storage_4_Updates'
+                    label: 'upgrade.steps.admin-repository-checks.repositories.codes.SLES_OpenStack_Cloud_7_Updates'
                 }
             },
             runRepoChecks: runRepoChecks
         };
 
         /**
-         *  Validate Nodes Repositories required for Cloud 7 Upgrade
+         *  Validate Admin Repositories required for Cloud 7 Upgrade
          */
         function runRepoChecks() {
+            vm.repoChecks.running = true;
 
-            upgradeRepositoriesChecksFactory.getNodesRepoChecks()
+            upgradeRepositoriesChecksFactory.getAdminRepoChecks()
                 .then(
                     // In case of success
                     function (repoChecksResponse) {
@@ -73,7 +61,6 @@
                         // Update prechecks status
 
                         _.forEach(vm.repoChecks.checks, function (repoStatus) {
-                            
                             if (false === repoStatus.status) {
                                 repoChecksResult = false;
                                 return false;
@@ -92,6 +79,7 @@
                 .finally(function () {
                     // Either on sucess or failure, the repoChecks has been completed.
                     vm.repoChecks.completed = true;
+                    vm.repoChecks.running = false;
                 });
         }
     }
