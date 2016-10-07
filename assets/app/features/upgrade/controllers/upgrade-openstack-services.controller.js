@@ -3,17 +3,17 @@
 
     /**
     * @ngdoc function
-    * @name crowbarApp.controller:Upgrade7OpenStackServicesController
+    * @name crowbarApp.controller:UpgradeOpenStackServicesController
     * @description
-    * # Upgrade7OpenStackServicesController
+    * # UpgradeOpenStackServicesController
     * This is the controller used on the Stop OpenStack Services page
     */
     angular.module('crowbarApp')
-        .controller('Upgrade7OpenStackServicesController', Upgrade7OpenStackServicesController);
+        .controller('UpgradeOpenStackServicesController', UpgradeOpenStackServicesController);
 
-    Upgrade7OpenStackServicesController.$inject = ['$translate', 'openStackFactory'];
+    UpgradeOpenStackServicesController.$inject = ['$translate', 'openStackFactory'];
     // @ngInject
-    function Upgrade7OpenStackServicesController($translate, openStackFactory) {
+    function UpgradeOpenStackServicesController($translate, openStackFactory) {
         var vm = this;
             
 
@@ -25,11 +25,11 @@
             checks: {
                 services: {
                     status: false, 
-                    label: 'upgrade7.steps.openstack-services.codes.services'
+                    label: 'upgrade.steps.openstack-services.codes.services'
                 },
                 backup: {
                     status: false, 
-                    label: 'upgrade7.steps.openstack-services.codes.backup'
+                    label: 'upgrade.steps.openstack-services.codes.backup'
                 }
             },
             stopOpenStackServices: stopOpenStackServices
